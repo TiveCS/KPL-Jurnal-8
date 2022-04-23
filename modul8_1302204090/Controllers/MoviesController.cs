@@ -8,13 +8,6 @@ namespace modul8_1302204090.Controllers
 	public class MoviesController : ControllerBase
 	{
 
-		private readonly ILogger<MoviesController> _logger;
-
-		public MoviesController(ILogger<MoviesController> logger)
-		{
-			_logger = logger;
-		}
-
 		[HttpGet]
 		public ActionResult<List<Movie>> GetMovies()
 		{
