@@ -8,32 +8,41 @@ namespace modul8_1302204090.Controllers
 	public class MoviesController : ControllerBase
 	{
 
-		[HttpGet]
-		public IEnumerable<Movie> GetMovies()
-		{
-			List<Movie> movies = new List<Movie>();
+		private readonly ILogger<MoviesController> _logger;
 
-			return movies;
+		public MoviesController(ILogger<MoviesController> logger)
+		{
+			_logger = logger;
+		}
+
+		[HttpGet]
+		public ActionResult<List<Movie>> GetMovies()
+		{
+			return Movie.Movies.ToList();
 		}
 
 		[HttpPost]
-		public void AddMovie(Movie movie)
+		public ActionResult<Movie> AddMovie(Movie movie)
 		{
-
+			Movie.Movies.Add(movie);
+			return Ok("Movie has been added");
 		}
 
 		[HttpGet]
 		[Route("{id}")]
-		public Movie GetMovie(int id)
+		public ActionResult<Movie> GetMovie(int id)
 		{
-			return null;
+			Movie movie = Movie.Movies[id];
+			return Ok(movie);
 		}
-		
+
 		[HttpDelete]
 		[Route("{id}")]
-		public void DeleteMovie(int id)
+		public ActionResult DeleteMovie(int id)
 		{
-
+			Movie.Movies.Remove(Movie.Movies[id]);
+			return Ok("Successfully delete movie");
 		}
+
 	}
 }
